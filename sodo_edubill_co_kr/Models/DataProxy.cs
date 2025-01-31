@@ -644,82 +644,19 @@ namespace sodo_edubill_co_kr.Models
                     }
                     else
                     {
-                       // r.IsAllowed = false;
-                        var order_weekchoice = Reader.GetString(1);
-                        var vorder_checkStime = Reader.GetString(2);
-                        var vorder_checkEtime = Reader.GetString(3);
-                        var order_checkStime = int.Parse(vorder_checkStime);
-                        var order_checkEtime = int.Parse(vorder_checkEtime);
-                        var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
+                      
+                        //var order_weekchoice = Reader.GetString(1);
+                        //var vorder_checkStime = Reader.GetString(2);
+                        //var vorder_checkEtime = Reader.GetString(3);
+                        //var order_checkStime = int.Parse(vorder_checkStime);
+                        //var order_checkEtime = int.Parse(vorder_checkEtime);
+                        //var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
 
-                        NowTime = nowtime;
-                        Order_checkStime = order_checkStime;
-                        Order_checkEtime = order_checkEtime;
+                        //NowTime = nowtime;
+                        //Order_checkStime = order_checkStime;
+                        //Order_checkEtime = order_checkEtime;
 
-                        //if (nowtime >= order_checkStime)
-                        //{
-                        //    var week = 0;
-                        //    switch (DateTime.Now.DayOfWeek)
-                        //    {
-                        //        case DayOfWeek.Monday:
-                        //            week = 3;
-                        //            break;
-                        //        case DayOfWeek.Tuesday:
-                        //            week = 4;
-                        //            break;
-                        //        case DayOfWeek.Wednesday:
-                        //            week = 5;
-                        //            break;
-                        //        case DayOfWeek.Thursday:
-                        //            week = 6;
-                        //            break;
-                        //        case DayOfWeek.Friday:
-                        //            week = 7;
-                        //            break;
-                        //        case DayOfWeek.Saturday:
-                        //            week = 1;
-                        //            break;
-                        //        case DayOfWeek.Sunday:
-                        //            week = 2;
-                        //            break;
-                        //        default:
-                        //            break;
-                        //    }
-                        //    //if (order_weekchoice.Contains(week.ToString()))
-                        //    //   // r.IsAllowed = true;
-                        //}
-                        //if (nowtime <= order_checkEtime)
-                        //{
-                        //    var week = 0;
-                        //    switch (DateTime.Now.DayOfWeek)
-                        //    {
-                        //        case DayOfWeek.Monday:
-                        //            week = 2;
-                        //            break;
-                        //        case DayOfWeek.Tuesday:
-                        //            week = 3;
-                        //            break;
-                        //        case DayOfWeek.Wednesday:
-                        //            week = 4;
-                        //            break;
-                        //        case DayOfWeek.Thursday:
-                        //            week = 5;
-                        //            break;
-                        //        case DayOfWeek.Friday:
-                        //            week = 6;
-                        //            break;
-                        //        case DayOfWeek.Saturday:
-                        //            week = 7;
-                        //            break;
-                        //        case DayOfWeek.Sunday:
-                        //            week = 1;
-                        //            break;
-                        //        default:
-                        //            break;
-                        //    }
-                        //    //if (order_weekchoice.Contains(week.ToString()))
-                        //    //    r.IsAllowed = true;
-                        //}
+                       
                        
                     }
                 }
@@ -1199,25 +1136,25 @@ namespace sodo_edubill_co_kr.Models
                     return r;
             }
             //여기서 주문 가능 여부를 판단한다.
-            if (!AllowOrderByFlag(CompanyIdx).IsAllowed)
-            {
-                return r;
-            }
-            if (!AllowOrderByTime(BSubIdx).IsAllowed)
-            {
-                r.Error = "지금은 주문 차단 시간이므로 주문을 하실 수 없습니다.";
-                return r;
-            }
-            if (!AllowOrderByWeek(CompanyIdx).IsAllowed)
-            {
-                r.Error = "지금은 주문 차단 시간이므로 주문을 하실 수 없습니다.";
-                return r;
-            }
-            if (!AllowOrderByMisu(CompanyIdx).IsAllowed)
-            {
-                r.Error = "주문 가능한 여신금액이 존재하시 않습니다.";
-                return r;
-            }
+            //if (!AllowOrderByFlag(CompanyIdx).IsAllowed)
+            //{
+            //    return r;
+            //}
+            //if (!AllowOrderByTime(BSubIdx).IsAllowed)
+            //{
+            //    r.Error = "지금은 주문 차단 시간이므로 주문을 하실 수 없습니다.";
+            //    return r;
+            //}
+            //if (!AllowOrderByWeek(CompanyIdx).IsAllowed)
+            //{
+            //    r.Error = "지금은 주문 차단 시간이므로 주문을 하실 수 없습니다.";
+            //    return r;
+            //}
+            //if (!AllowOrderByMisu(CompanyIdx).IsAllowed)
+            //{
+            //    r.Error = "주문 가능한 여신금액이 존재하시 않습니다.";
+            //    return r;
+            //}
 
             var UseMoney = 0;
             var ye_money = 0;
@@ -1360,312 +1297,312 @@ namespace sodo_edubill_co_kr.Models
             return r;
         }
 
-        public AllowViewModel AllowOrderByTime(int BSubIdx)
-        {
-            AllowViewModel r = new AllowViewModel();
+        //public AllowViewModel AllowOrderByTime(int BSubIdx)
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Query =
-                @"SELECT timecheck1, timecheck2 FROM tb_company WHERE idx = @BSubIdx";
+        //    var Query =
+        //        @"SELECT timecheck1, timecheck2 FROM tb_company WHERE idx = @BSubIdx";
 
-            using (SqlConnection Connection = new SqlConnection(ConnectionString))
-            {
-                Connection.Open();
-                var Command = Connection.CreateCommand();
-                Command.CommandText = Query;
-                Command.Parameters.AddWithValue("@BSubIdx", BSubIdx);
-                var Reader = Command.ExecuteReader();
-                if(Reader.Read())
-                {
-                    var timecheck1 = Reader.GetString(0);
-                    var timecheck2 = Reader.GetString(1);
-                    if (String.IsNullOrEmpty(timecheck1) || String.IsNullOrEmpty(timecheck2))
-                        r.IsAllowed = true;
-                    else
-                    {
-                        var hour1 = int.Parse(timecheck1.Substring(0, 2));
-                        var hour2 = int.Parse(timecheck2.Substring(0, 2));
-                        var minuet1 = int.Parse(timecheck1.Substring(2, 2));
-                        var minuet2 = int.Parse(timecheck2.Substring(2, 2));
-                        var fromtime = DateTime.Now.Date.AddHours(hour1).AddMinutes(minuet1);
-                        var totime = DateTime.Now.Date.AddHours(hour2).AddMinutes(minuet2);
+        //    using (SqlConnection Connection = new SqlConnection(ConnectionString))
+        //    {
+        //        Connection.Open();
+        //        var Command = Connection.CreateCommand();
+        //        Command.CommandText = Query;
+        //        Command.Parameters.AddWithValue("@BSubIdx", BSubIdx);
+        //        var Reader = Command.ExecuteReader();
+        //        if(Reader.Read())
+        //        {
+        //            var timecheck1 = Reader.GetString(0);
+        //            var timecheck2 = Reader.GetString(1);
+        //            if (String.IsNullOrEmpty(timecheck1) || String.IsNullOrEmpty(timecheck2))
+        //                r.IsAllowed = true;
+        //            else
+        //            {
+        //                var hour1 = int.Parse(timecheck1.Substring(0, 2));
+        //                var hour2 = int.Parse(timecheck2.Substring(0, 2));
+        //                var minuet1 = int.Parse(timecheck1.Substring(2, 2));
+        //                var minuet2 = int.Parse(timecheck2.Substring(2, 2));
+        //                var fromtime = DateTime.Now.Date.AddHours(hour1).AddMinutes(minuet1);
+        //                var totime = DateTime.Now.Date.AddHours(hour2).AddMinutes(minuet2);
 
                       
 
-                        var now_time =  int.Parse("1" + DateTime.Now.ToString("HHmm"));
-                        var timecheck1_1 = int.Parse("1"+fromtime.ToString("HHmm"));
-                        var timecheck2_2 = int.Parse("1"+totime.ToString("HHmm"));
-                        var gijun_time1 = int.Parse("1" + DateTime.Now.ToString("2400"));
-                        var gijun_time2 = int.Parse("1" + DateTime.Now.ToString("0000"));
-                        if (timecheck1_1 < timecheck2_2)
-                        {
-                            if (DateTime.Now >= fromtime && DateTime.Now <= totime)
-                            {
-                                r.IsAllowed = false;
-                                r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"));
-                            }
-                            else
-                                r.IsAllowed = true;
-                        }
-                        else
-                        {
-                            if ((now_time >= timecheck1_1 && now_time <= gijun_time1) || (now_time >= gijun_time2 && now_time <= timecheck2_2))
-                            {
-                                r.IsAllowed = false;
-                                r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"));
-                            }
-                            else
-                                r.IsAllowed = true;
-                        }
-                        //if (DateTime.Now >= fromtime && DateTime.Now <= totime)
-                        //{
-                        //    r.IsAllowed = false;
-                        //    r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"), DateTime.Now);
-                        //}
-                        //else
-                        //    r.IsAllowed = true;
+        //                var now_time =  int.Parse("1" + DateTime.Now.ToString("HHmm"));
+        //                var timecheck1_1 = int.Parse("1"+fromtime.ToString("HHmm"));
+        //                var timecheck2_2 = int.Parse("1"+totime.ToString("HHmm"));
+        //                var gijun_time1 = int.Parse("1" + DateTime.Now.ToString("2400"));
+        //                var gijun_time2 = int.Parse("1" + DateTime.Now.ToString("0000"));
+        //                if (timecheck1_1 < timecheck2_2)
+        //                {
+        //                    if (DateTime.Now >= fromtime && DateTime.Now <= totime)
+        //                    {
+        //                        r.IsAllowed = false;
+        //                        r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"));
+        //                    }
+        //                    else
+        //                        r.IsAllowed = true;
+        //                }
+        //                else
+        //                {
+        //                    if ((now_time >= timecheck1_1 && now_time <= gijun_time1) || (now_time >= gijun_time2 && now_time <= timecheck2_2))
+        //                    {
+        //                        r.IsAllowed = false;
+        //                        r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"));
+        //                    }
+        //                    else
+        //                        r.IsAllowed = true;
+        //                }
+        //                //if (DateTime.Now >= fromtime && DateTime.Now <= totime)
+        //                //{
+        //                //    r.IsAllowed = false;
+        //                //    r.Message = String.Format("차단시간 : {0} ~ {1}", fromtime.ToString("HH:mm"), totime.ToString("HH:mm"), DateTime.Now);
+        //                //}
+        //                //else
+        //                //    r.IsAllowed = true;
 
                         
-                    }
-                }
-                Reader.Close();
-            }
+        //            }
+        //        }
+        //        Reader.Close();
+        //    }
 
 
-            return r;
-        }
+        //    return r;
+        //}
 
-        public AllowViewModel AllowOrderByFlag(int Idx)
-        {
-            AllowViewModel r = new AllowViewModel();
+        //public AllowViewModel AllowOrderByFlag(int Idx)
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Query =
-                @"SELECT orderflag FROM tb_company WHERE idx = @Idx";
+        //    var Query =
+        //        @"SELECT orderflag FROM tb_company WHERE idx = @Idx";
 
-            using (SqlConnection Connection = new SqlConnection(ConnectionString))
-            {
-                Connection.Open();
-                var Command = Connection.CreateCommand();
-                Command.CommandText = Query;
-                Command.Parameters.AddWithValue("@Idx", Idx);
-                var o = Command.ExecuteScalar();
-                if(o != null)
-                {
-                    if (o.ToString() == "1")
-                    {
-                        r.IsAllowed = false;
-                        r.Message = "'미수금' 관계로 주문을 하실 수 없습니다.";
-                    }
-                    else if (o.ToString() == "2")
-                    {
-                        r.IsAllowed = false;
-                        r.Message = "'폐업' 관계로 주문을 하실 수 없습니다.";
-                    }
-                    else if (o.ToString() == "3")
-                    {
-                        r.IsAllowed = false;
-                        r.Message = "'휴업' 관계로 주문을 하실 수 없습니다.";
-                    }
-                    else
-                        r.IsAllowed = true;
-                }
-            }
+        //    using (SqlConnection Connection = new SqlConnection(ConnectionString))
+        //    {
+        //        Connection.Open();
+        //        var Command = Connection.CreateCommand();
+        //        Command.CommandText = Query;
+        //        Command.Parameters.AddWithValue("@Idx", Idx);
+        //        var o = Command.ExecuteScalar();
+        //        if(o != null)
+        //        {
+        //            if (o.ToString() == "1")
+        //            {
+        //                r.IsAllowed = false;
+        //                r.Message = "'미수금' 관계로 주문을 하실 수 없습니다.";
+        //            }
+        //            else if (o.ToString() == "2")
+        //            {
+        //                r.IsAllowed = false;
+        //                r.Message = "'폐업' 관계로 주문을 하실 수 없습니다.";
+        //            }
+        //            else if (o.ToString() == "3")
+        //            {
+        //                r.IsAllowed = false;
+        //                r.Message = "'휴업' 관계로 주문을 하실 수 없습니다.";
+        //            }
+        //            else
+        //                r.IsAllowed = true;
+        //        }
+        //    }
 
 
-            return r;
-        }
+        //    return r;
+        //}
 
-        public AllowViewModel AllowOrderByWeek(int Idx)
-        {
-            AllowViewModel r = new AllowViewModel();
+        //public AllowViewModel AllowOrderByWeek(int Idx)
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Query =
-                @"SELECT order_weekgubun, order_weekchoice, order_checkStime, order_checkEtime FROM tb_company WHERE idx = @Idx";
+        //    var Query =
+        //        @"SELECT order_weekgubun, order_weekchoice, order_checkStime, order_checkEtime FROM tb_company WHERE idx = @Idx";
 
-            using (SqlConnection Connection = new SqlConnection(ConnectionString))
-            {
-                Connection.Open();
-                var Command = Connection.CreateCommand();
-                Command.CommandText = Query;
-                Command.Parameters.AddWithValue("@Idx", Idx);
-                var Reader = Command.ExecuteReader();
-                if(Reader.Read())
-                {
-                    var order_weekgubun = Reader.GetString(0);
-                    if (order_weekgubun == "1")
-                    {
-                        r.IsAllowed = true;
-                    }
-                    else
-                    {
-                        r.IsAllowed = false;
-                        var order_weekchoice = Reader.GetString(1);
-                        var vorder_checkStime = Reader.GetString(2);
-                        var vorder_checkEtime = Reader.GetString(3);
-                        var order_checkStime = int.Parse(vorder_checkStime);
-                        var order_checkEtime = int.Parse(vorder_checkEtime);
-                        var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
-                        if(nowtime >= order_checkStime)
-                        {
-                            var week = 0;
-                            switch (DateTime.Now.DayOfWeek)
-                            {
-                                case DayOfWeek.Monday:
-                                    week = 3;
-                                    break;
-                                case DayOfWeek.Tuesday:
-                                    week = 4;
-                                    break;
-                                case DayOfWeek.Wednesday:
-                                    week = 5;
-                                    break;
-                                case DayOfWeek.Thursday:
-                                    week = 6;
-                                    break;
-                                case DayOfWeek.Friday:
-                                    week = 7;
-                                    break;
-                                case DayOfWeek.Saturday:
-                                    week = 1;
-                                    break;
-                                case DayOfWeek.Sunday:
-                                    week = 2;
-                                    break;
-                                default:
-                                    break;
-                            }
-                            if (order_weekchoice.Contains(week.ToString()))
-                                r.IsAllowed = true;
-                        }
-                        if (nowtime <= order_checkEtime)
-                        {
-                            var week = 0;
-                            switch (DateTime.Now.DayOfWeek)
-                            {
-                                case DayOfWeek.Monday:
-                                    week = 2;
-                                    break;
-                                case DayOfWeek.Tuesday:
-                                    week = 3;
-                                    break;
-                                case DayOfWeek.Wednesday:
-                                    week = 4;
-                                    break;
-                                case DayOfWeek.Thursday:
-                                    week = 5;
-                                    break;
-                                case DayOfWeek.Friday:
-                                    week = 6;
-                                    break;
-                                case DayOfWeek.Saturday:
-                                    week = 7;
-                                    break;
-                                case DayOfWeek.Sunday:
-                                    week = 1;
-                                    break;
-                                default:
-                                    break;
-                            }
-                            if (order_weekchoice.Contains(week.ToString()))
-                                r.IsAllowed = true;
-                        }
-                        if(r.IsAllowed == false)
-                        {
-                            var week = String.Join("/", order_weekchoice.Select(c =>
-                            {
-                                if (c == '2')
-                                {
-                                    return "월";
-                                }
-                                if (c == '3')
-                                {
-                                    return "화";
-                                }
-                                if (c == '4')
-                                {
-                                    return "수";
-                                }
-                                if (c == '5')
-                                {
-                                    return "목";
-                                }
-                                if (c == '6')
-                                {
-                                    return "금";
-                                }
-                                if (c == '7')
-                                {
-                                    return "토";
-                                }
-                                if (c == '1')
-                                {
-                                    return "일";
-                                }
-                                return "";
-                            }));
-                            var time1 = vorder_checkStime.Substring(0, 2) + ":" + vorder_checkStime.Substring(2, 2);
-                            var time2 = vorder_checkEtime.Substring(0, 2) + ":" + vorder_checkEtime.Substring(2, 2);
-                            r.Message = String.Format("주문허용요일 : {0}<br>" + Environment.NewLine + "주문허용시간 : 전일 {1} ~ 당일 {2}", week, time1, time2);
-                        }
-                    }
-                }
-                Reader.Close();
-            }
-            return r;
-        }
+        //    using (SqlConnection Connection = new SqlConnection(ConnectionString))
+        //    {
+        //        Connection.Open();
+        //        var Command = Connection.CreateCommand();
+        //        Command.CommandText = Query;
+        //        Command.Parameters.AddWithValue("@Idx", Idx);
+        //        var Reader = Command.ExecuteReader();
+        //        if(Reader.Read())
+        //        {
+        //            var order_weekgubun = Reader.GetString(0);
+        //            if (order_weekgubun == "1")
+        //            {
+        //                r.IsAllowed = true;
+        //            }
+        //            else
+        //            {
+        //                r.IsAllowed = false;
+        //                var order_weekchoice = Reader.GetString(1);
+        //                var vorder_checkStime = Reader.GetString(2);
+        //                var vorder_checkEtime = Reader.GetString(3);
+        //                var order_checkStime = int.Parse(vorder_checkStime);
+        //                var order_checkEtime = int.Parse(vorder_checkEtime);
+        //                var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
+        //                if(nowtime >= order_checkStime)
+        //                {
+        //                    var week = 0;
+        //                    switch (DateTime.Now.DayOfWeek)
+        //                    {
+        //                        case DayOfWeek.Monday:
+        //                            week = 3;
+        //                            break;
+        //                        case DayOfWeek.Tuesday:
+        //                            week = 4;
+        //                            break;
+        //                        case DayOfWeek.Wednesday:
+        //                            week = 5;
+        //                            break;
+        //                        case DayOfWeek.Thursday:
+        //                            week = 6;
+        //                            break;
+        //                        case DayOfWeek.Friday:
+        //                            week = 7;
+        //                            break;
+        //                        case DayOfWeek.Saturday:
+        //                            week = 1;
+        //                            break;
+        //                        case DayOfWeek.Sunday:
+        //                            week = 2;
+        //                            break;
+        //                        default:
+        //                            break;
+        //                    }
+        //                    if (order_weekchoice.Contains(week.ToString()))
+        //                        r.IsAllowed = true;
+        //                }
+        //                if (nowtime <= order_checkEtime)
+        //                {
+        //                    var week = 0;
+        //                    switch (DateTime.Now.DayOfWeek)
+        //                    {
+        //                        case DayOfWeek.Monday:
+        //                            week = 2;
+        //                            break;
+        //                        case DayOfWeek.Tuesday:
+        //                            week = 3;
+        //                            break;
+        //                        case DayOfWeek.Wednesday:
+        //                            week = 4;
+        //                            break;
+        //                        case DayOfWeek.Thursday:
+        //                            week = 5;
+        //                            break;
+        //                        case DayOfWeek.Friday:
+        //                            week = 6;
+        //                            break;
+        //                        case DayOfWeek.Saturday:
+        //                            week = 7;
+        //                            break;
+        //                        case DayOfWeek.Sunday:
+        //                            week = 1;
+        //                            break;
+        //                        default:
+        //                            break;
+        //                    }
+        //                    if (order_weekchoice.Contains(week.ToString()))
+        //                        r.IsAllowed = true;
+        //                }
+        //                if(r.IsAllowed == false)
+        //                {
+        //                    var week = String.Join("/", order_weekchoice.Select(c =>
+        //                    {
+        //                        if (c == '2')
+        //                        {
+        //                            return "월";
+        //                        }
+        //                        if (c == '3')
+        //                        {
+        //                            return "화";
+        //                        }
+        //                        if (c == '4')
+        //                        {
+        //                            return "수";
+        //                        }
+        //                        if (c == '5')
+        //                        {
+        //                            return "목";
+        //                        }
+        //                        if (c == '6')
+        //                        {
+        //                            return "금";
+        //                        }
+        //                        if (c == '7')
+        //                        {
+        //                            return "토";
+        //                        }
+        //                        if (c == '1')
+        //                        {
+        //                            return "일";
+        //                        }
+        //                        return "";
+        //                    }));
+        //                    var time1 = vorder_checkStime.Substring(0, 2) + ":" + vorder_checkStime.Substring(2, 2);
+        //                    var time2 = vorder_checkEtime.Substring(0, 2) + ":" + vorder_checkEtime.Substring(2, 2);
+        //                    r.Message = String.Format("주문허용요일 : {0}<br>" + Environment.NewLine + "주문허용시간 : 전일 {1} ~ 당일 {2}", week, time1, time2);
+        //                }
+        //            }
+        //        }
+        //        Reader.Close();
+        //    }
+        //    return r;
+        //}
 
-        public AllowViewModel AllowOrderByMisu(int Idx)
-        {
-            AllowViewModel r = new AllowViewModel();
+        //public AllowViewModel AllowOrderByMisu(int Idx)
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Query =
-                //  @"SELECT ye_money, mi_money FROM tb_company WHERE idx = @Idx";
-              @"select a.ye_money, a.mi_money,b.myflag,b.myflag_select from tb_company a join tb_company b on b.idx = a.bidxsub WHERE a.idx = @Idx";
+        //    var Query =
+        //        //  @"SELECT ye_money, mi_money FROM tb_company WHERE idx = @Idx";
+        //      @"select a.ye_money, a.mi_money,b.myflag,b.myflag_select from tb_company a join tb_company b on b.idx = a.bidxsub WHERE a.idx = @Idx";
 
-            using (SqlConnection Connection = new SqlConnection(ConnectionString))
-            {
-                Connection.Open();
-                var Command = Connection.CreateCommand();
-                Command.CommandText = Query;
-                Command.Parameters.AddWithValue("@Idx", Idx);
-                var Reader = Command.ExecuteReader();
-                if (Reader.Read())
-                {
-                    var ye_money = Reader.GetInt32(0);
-                    var mi_money = Reader.GetInt32(1);
-                    var myflag = Reader.GetString(2);
-                    var myflag_select = Reader.GetString(3);
+        //    using (SqlConnection Connection = new SqlConnection(ConnectionString))
+        //    {
+        //        Connection.Open();
+        //        var Command = Connection.CreateCommand();
+        //        Command.CommandText = Query;
+        //        Command.Parameters.AddWithValue("@Idx", Idx);
+        //        var Reader = Command.ExecuteReader();
+        //        if (Reader.Read())
+        //        {
+        //            var ye_money = Reader.GetInt32(0);
+        //            var mi_money = Reader.GetInt32(1);
+        //            var myflag = Reader.GetString(2);
+        //            var myflag_select = Reader.GetString(3);
 
-                    if(myflag == "y")
-                    {
-                       // if (myflag_select == "2")
-                       // {
-                            if (mi_money > ye_money)
-                            {
-                                r.IsAllowed = false;
-                                r.Message = String.Format("여신금 : {0:N0}원<br>미수금 : {1:N0}원", ye_money, mi_money);
-                            }
-                            else
-                            {
-                                r.IsAllowed = true;
+        //            if(myflag == "y")
+        //            {
+        //               // if (myflag_select == "2")
+        //               // {
+        //                    if (mi_money > ye_money)
+        //                    {
+        //                        r.IsAllowed = false;
+        //                        r.Message = String.Format("여신금 : {0:N0}원<br>미수금 : {1:N0}원", ye_money, mi_money);
+        //                    }
+        //                    else
+        //                    {
+        //                        r.IsAllowed = true;
 
-                            }
-                       // }
-                      //  else
-                       // {
-                     //       r.IsAllowed = true;
-                      //  }
-                       // r.IsMyFlag = true;
-                    }
-                    else
-                    {
-                       // r.IsMyFlag = false;
-                        r.IsAllowed = true;
-                    }
-                }
-                Reader.Close();
-            }
-            return r;
-        }
+        //                    }
+        //               // }
+        //              //  else
+        //               // {
+        //             //       r.IsAllowed = true;
+        //              //  }
+        //               // r.IsMyFlag = true;
+        //            }
+        //            else
+        //            {
+        //               // r.IsMyFlag = false;
+        //                r.IsAllowed = true;
+        //            }
+        //        }
+        //        Reader.Close();
+        //    }
+        //    return r;
+        //}
 
         public byte[] Thumbnail(int ProductId)
         {

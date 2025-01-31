@@ -21,11 +21,11 @@ namespace sodo_edubill_co_kr.Controllers
         {
             var BIdxSub = AccountHelper.GetbIdxSub(Request);
             var Idx = AccountHelper.GetIdx(Request);
-            var Flag = mDataProxy.AllowOrderByFlag(Idx);
-            if(!Flag.IsAllowed)
-            {
-                return RedirectToAction("AlertFlag"); 
-            }
+            //var Flag = mDataProxy.AllowOrderByFlag(Idx);
+            //if(!Flag.IsAllowed)
+            //{
+            //    return RedirectToAction("AlertFlag"); 
+            //}
             var brands = AccountHelper.GetBrand(Request);
             var BSubCode = mDataProxy.GetBSubCode(BIdxSub);
             var needThumbnail = mDataProxy.GetNeedThumbnail(BIdxSub);
@@ -64,49 +64,49 @@ namespace sodo_edubill_co_kr.Controllers
 
             return r;
         }
-        public ActionResult AlertFlag()
-        {
-            var Idx = AccountHelper.GetIdx(Request);
-            var Flag = mDataProxy.AllowOrderByFlag(Idx);
-            var mHomeViewModel = mDataProxy.GetHomeViewModel(Idx);
-            ViewBag.PhoneNo = mHomeViewModel.BSubPhoneNo;
-            ViewBag.Flag = Flag.Message;
+        //public ActionResult AlertFlag()
+        //{
+        //    var Idx = AccountHelper.GetIdx(Request);
+        //    var Flag = mDataProxy.AllowOrderByFlag(Idx);
+        //    var mHomeViewModel = mDataProxy.GetHomeViewModel(Idx);
+        //    ViewBag.PhoneNo = mHomeViewModel.BSubPhoneNo;
+        //    ViewBag.Flag = Flag.Message;
 
-            return View(); ;
-        }
-        [HttpPost]
-        public ActionResult AllowOrderByTime()
-        {
-            AllowViewModel r = new AllowViewModel();
+        //    return View(); ;
+        //}
+        //[HttpPost]
+        //public ActionResult AllowOrderByTime()
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var BSubIdx = AccountHelper.GetbIdxSub(Request);
+        //    var BSubIdx = AccountHelper.GetbIdxSub(Request);
 
-            r = mDataProxy.AllowOrderByTime(BSubIdx);
+        //    r = mDataProxy.AllowOrderByTime(BSubIdx);
 
-            return new JsonResult { Data = r };
-        }
-        [HttpPost]
-        public ActionResult AllowOrderByWeek()
-        {
-            AllowViewModel r = new AllowViewModel();
+        //    return new JsonResult { Data = r };
+        //}
+        //[HttpPost]
+        //public ActionResult AllowOrderByWeek()
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Idx = AccountHelper.GetIdx(Request);
+        //    var Idx = AccountHelper.GetIdx(Request);
 
-            r = mDataProxy.AllowOrderByWeek(Idx);
+        //    r = mDataProxy.AllowOrderByWeek(Idx);
 
-            return new JsonResult { Data = r };
-        }
-        [HttpPost]
-        public ActionResult AllowOrderByMisu()
-        {
-            AllowViewModel r = new AllowViewModel();
+        //    return new JsonResult { Data = r };
+        //}
+        //[HttpPost]
+        //public ActionResult AllowOrderByMisu()
+        //{
+        //    AllowViewModel r = new AllowViewModel();
 
-            var Idx = AccountHelper.GetIdx(Request);
+        //    var Idx = AccountHelper.GetIdx(Request);
 
-            r = mDataProxy.AllowOrderByMisu(Idx);
+        //    r = mDataProxy.AllowOrderByMisu(Idx);
 
-            return new JsonResult { Data = r };
-        }
+        //    return new JsonResult { Data = r };
+        //}
         [AllowAnonymous]
         public ActionResult Thumbnail(int ProductId)
         {

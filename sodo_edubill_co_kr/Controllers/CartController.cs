@@ -19,13 +19,13 @@ namespace sodo_edubill_co_kr.Controllers
         public ActionResult Index()
         {
             var Idx = AccountHelper.GetIdx(Request);
-            var Flag = mDataProxy.AllowOrderByFlag(Idx);
+            //var Flag = mDataProxy.AllowOrderByFlag(Idx);
 
             var BidxSub = AccountHelper.GetbIdxSub(Request);
-            if (!Flag.IsAllowed)
-            {
-                return RedirectToAction("AlertFlag", "Order");
-            }
+            ////if (!Flag.IsAllowed)
+            ////{
+            ////    return RedirectToAction("AlertFlag", "Order");
+            ////}
            
             var From = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd");
             ViewBag.From = From;
