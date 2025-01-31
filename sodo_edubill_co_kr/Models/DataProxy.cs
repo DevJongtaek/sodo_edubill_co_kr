@@ -41,7 +41,7 @@ namespace sodo_edubill_co_kr.Models
             var SelectQuery =
                 @"SELECT Company.idx
                 FROM tb_company Company JOIN tb_company BSub ON Company.bidxsub = BSub.idx
-                WHERE BSub.tcode + Company.tcode = @LoginId AND Company.soundfile = @Password";
+                WHERE BSub.tcode + Company.tcode = @LoginId AND Company.soundfile = @Password" ;
             var UpdateQuery =
                 @"UPDATE tb_company
                 SET adminProgram = @Session
@@ -156,7 +156,7 @@ namespace sodo_edubill_co_kr.Models
         {
             string r = "";
 
-            var Query = "SELECT sclose FROM tb_company WHERE tcode = @tcode AND flag = '1'";
+            var Query = "SELECT sclose FROM tb_company WHERE tcode = @tcode AND flag = '1' AND adminProgram=@adminprogram";
 
             using (SqlConnection Connection = new SqlConnection(ConnectionString))
             {
@@ -164,6 +164,7 @@ namespace sodo_edubill_co_kr.Models
                 var Command = Connection.CreateCommand();
                 Command.CommandText = Query;
                 Command.Parameters.AddWithValue("@tcode", tcode);
+                Command.Parameters.AddWithValue("@adminprogram", "sodo");
                 var o = Command.ExecuteScalar();
                 if (o != null)
                     r = o.ToString();

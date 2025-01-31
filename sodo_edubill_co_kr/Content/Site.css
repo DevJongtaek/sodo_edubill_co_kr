@@ -697,8 +697,8 @@ font-size:14px;
 .login-page .login_top_banner img{width:100%;}
 .login-page .login_form_wrap .ui-realmain_wrap{width:100%;}
 .login-page .login_form_wrap .ui-input-text{width:100%; margin:0px; border:1px solid #ececec;}
-.login-page .login_form_wrap .login_btn{overflow:hidden; width:79px; height:83px; position:absolute; top:0px; right:0px;}
-.login-page .login_form_wrap .login_btn img{height:83px; width:100%;}
+.login-page .login_form_wrap .login_btn{overflow:hidden; width:79px; height:38px; position:absolute; top:0px; right:0px;}
+.login-page .login_form_wrap .login_btn img{height:38px; width:100%;}
 .login-page .pass_form{margin-top:10px;}
 .login-page .login_bottom_ban{padding-left:3.1%; padding-right:3.1%; overflow:hidden; margin-top:16px;}
 .login-page .login_bottom_ban div:nth-child(1){width:33.3%;}

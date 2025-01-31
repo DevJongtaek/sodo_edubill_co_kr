@@ -7,8 +7,8 @@
         <div class="login_wrap">
             <div class="login_form_wrap">   
                 <div class="ui-realmain_wrap">
-                    <div class="ui-realmain login_form"><input id="LoginID" type="text" style="width:100%; color:#000!important;font-size:15px;font-weight:bold;" placeholder="가맹점코드 (숫자 8자리)" value='@ViewBag.LoginID' maxlength="8"/></div>
-                    <div class="ui-realmain pass_form"><input id="Password" type="password" style="width:100%;font-size:15px;font-weight:bold;" placeholder="비밀번호" maxlength="2" /></div>
+                    <div class="ui-realmain login_form"><input id="LoginID" type="text" style="width:100%; color:#000!important;font-size:15px;font-weight:bold;" placeholder="회원번호 (숫자 8자리)" value='@ViewBag.LoginID' maxlength="8"/></div>
+                    @*<div class="ui-realmain pass_form"><input id="Password" type="password" style="width:100%;font-size:15px;font-weight:bold;" placeholder="비밀번호" maxlength="2" /></div>*@
                 </div>
                 <div class="login_btn">
                     <img src="~/Content/Theme/images/icons-png/login_btn.jpg"  onclick="Submit()">
@@ -18,11 +18,11 @@
                     <div class="ui-block-a">
                         @if (ViewBag.SaveId)
                         {
-                            <input id="SaveId" type="checkbox" data-role="none" checked/><span>가맹점코드 저장</span>
+                            <input id="SaveId" type="checkbox" data-role="none" checked/><span>회원번호 저장</span>
                         }
                         else
                         {
-                            <input id="SaveId" type="checkbox" data-role="none" /><span>가맹점코드 저장</span>
+                            <input id="SaveId" type="checkbox" data-role="none" /><span>회원번호 저장</span>
                         }
                     </div>
                     <div class="ui-block-b">

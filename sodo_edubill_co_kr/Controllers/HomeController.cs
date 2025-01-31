@@ -90,13 +90,21 @@ namespace sodo_edubill_co_kr.Controllers
         {
             var tcode = value.LoginID.Substring(0, 4);
             var r = mDataProxy.GetSclose(tcode);
-            if(r == "n")
+            //if(r == "n")
+            //{
+            //    return new JsonResult { Data = new ResultViewModel { IsSuccess = false } };
+            //}
+            //else
+            //{
+            //    return new JsonResult { Data = new ResultViewModel { IsSuccess = true } };
+            //}
+            if (r == "y")
             {
-                return new JsonResult { Data = new ResultViewModel { IsSuccess = false } };
+                return new JsonResult { Data = new ResultViewModel { IsSuccess = true } };
             }
             else
             {
-                return new JsonResult { Data = new ResultViewModel { IsSuccess = true } };
+                return new JsonResult { Data = new ResultViewModel { IsSuccess = false } };
             }
         }
 
