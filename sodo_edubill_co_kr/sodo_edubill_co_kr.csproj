@@ -224,6 +224,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\SimpleAuthorizeAttribute.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InputListController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="ViewModels\Product.cs" />
     <Compile Include="ViewModels\ProductGroup.cs" />
     <Compile Include="ViewModels\ResultViewModel.cs" />
+    <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -580,6 +582,7 @@
     <Content Include="Views\Setting\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

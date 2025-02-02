@@ -115,6 +115,5 @@ namespace sodo_edubill_co_kr.Controllers
             mDataProxy.Logout(Idx);
             return RedirectToAction("Index");
         }
-
     }
 }

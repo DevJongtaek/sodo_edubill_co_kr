@@ -5,36 +5,60 @@
     <div role="main" class="ui-content">
         <div class="login_top_banner"><img src="~/Content/Theme/images/icons-png/login_top_banner.jpg"></div>
         <div class="login_wrap">
-            <div class="login_form_wrap">   
+            <div class="login_form_wrap">
                 <div class="ui-realmain_wrap">
-                    <div class="ui-realmain login_form"><input id="LoginID" type="text" style="width:100%; color:#000!important;font-size:15px;font-weight:bold;" placeholder="회원번호 (숫자 8자리)" value='@ViewBag.LoginID' maxlength="8"/></div>
+                    <div class="ui-realmain login_form"><input id="LoginID" type="text" style="width:100%; color:#000!important;font-size:15px;font-weight:bold;" placeholder="회원번호 (숫자 8자리)" value='@ViewBag.LoginID' maxlength="8" /></div>
                     @*<div class="ui-realmain pass_form"><input id="Password" type="password" style="width:100%;font-size:15px;font-weight:bold;" placeholder="비밀번호" maxlength="2" /></div>*@
                 </div>
                 <div class="login_btn">
-                    <img src="~/Content/Theme/images/icons-png/login_btn.jpg"  onclick="Submit()">
+                    <img src="~/Content/Theme/images/icons-png/login_btn.jpg" onclick="Submit()">
                 </div>
             </div>
             <div class="ui-grid-a ui-mini">
-                    <div class="ui-block-a">
-                        @if (ViewBag.SaveId)
-                        {
-                            <input id="SaveId" type="checkbox" data-role="none" checked/><span>회원번호 저장</span>
-                        }
-                        else
-                        {
-                            <input id="SaveId" type="checkbox" data-role="none" /><span>회원번호 저장</span>
-                        }
-                    </div>
-                    <div class="ui-block-b">
-                        <input id="RemainSession" type="checkbox" data-role="none"/><span>로그인 상태 유지</span>
-                    </div>
+                <div class="ui-block-a">
+                    @if (ViewBag.SaveId)
+                    {
+                        <input id="SaveId" type="checkbox" data-role="none" checked /><span>회원번호 저장</span>
+                    }
+                    else
+                    {
+                        <input id="SaveId" type="checkbox" data-role="none" /><span>회원번호 저장</span>
+                    }
                 </div>
+                <div class="ui-block-b">
+                    <input id="RemainSession" type="checkbox" data-role="none" /><span>로그인 상태 유지</span>
+                </div>
+            </div>
         </div>
-        <div class="login_bottom_ban"> 
+        @*<div class="login_bottom_ban">
             <div><img src="~/Content/Theme/images/icons-png/login_ban_1.jpg"></div>
             <div><img src="~/Content/Theme/images/icons-png/login_ban_2.jpg"></div>
             <div><img src="~/Content/Theme/images/icons-png/login_ban_3.jpg"></div>
+
+        </div>*@
+    <div style="font-size:14px; font-family:nanum gothic; padding-top:20px; padding-left:3.1%; padding-right:3.1%; padding-bottom:2.6%;background:#f5edf8">
+        <div>
+            ■ ‘회원번호’ 입력방법
+
         </div>
+        <div>
+            체인점코드 + 회원 핸드폰번호 뒷 4자리
+        </div>
+        <div>
+            예 ) 소도몰 ‘체인점코드’가 4702 이고,
+        </div>
+        <div>
+            ‘회원 핸드폰번호’가 010-5402-1200 이면
+        </div>
+        <div>
+            ‘회원번호’는  47021200  입니다.
+
+        </div>
+        
+            <div><a href='@Url.Action("Index","Company")'>체인점 코드찾기</a></div>
+        
+    </div>
+
     </div>
     <div id="login_footer_wrap">
         <footer data-role="footer"  data-position="fixed" data-tap-toggle="false" class="login_page_footer">
