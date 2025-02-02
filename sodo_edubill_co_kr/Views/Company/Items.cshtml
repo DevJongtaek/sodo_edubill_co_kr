@@ -1,0 +1,26 @@
+﻿@model IEnumerable<sodo_edubill_co_kr.ViewModels.CompanyListItem>
+@{
+    Layout = null;
+}
+
+<table cellspacing="0" cellpadding="0" border="0">
+    <thead>
+        <tr>
+            @*<th class="ViewDatail"></th>*@
+            <th class="Idx top_1">Idx</th>
+            <th class="TCode top_2">체인점명</th>
+            <th class="Comname top_3">체인점코드</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mCompanyItem in Model)
+        {
+            <tr>
+                @*<td class="ViewDatail"><a class="ui-td-icon-search" onclick='GoDetail("@mOrderItem.OrderId")'></a></td>*@
+                <td class="OrderDate">@mCompanyItem.Idx")</td>
+                <td class="OrderAmt">@mCompanyItem.TCode</td>
+                <td class="DeliveryDate">@mCompanyItem.Comname</td>
+            </tr>
+        }
+    </tbody>
+</table>

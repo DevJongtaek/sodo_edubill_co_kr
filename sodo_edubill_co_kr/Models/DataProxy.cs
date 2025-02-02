@@ -2351,8 +2351,8 @@ namespace sodo_edubill_co_kr.Models
         #endregion
 
         #region CompanyList
-        public CompanyViewModel CompanyViewModel() { 
-            CompanyViewModel r = null;
+        public CompanyListItem CompanyViewModel() { 
+            CompanyListItem r = null;
             return r;
 
         }

@@ -248,7 +248,7 @@
     <Compile Include="ViewModels\Product.cs" />
     <Compile Include="ViewModels\ProductGroup.cs" />
     <Compile Include="ViewModels\ResultViewModel.cs" />
-    <Compile Include="ViewModels\CompanyViewModel.cs" />
+    <Compile Include="ViewModels\CompanyListItem.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +583,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Company\Items.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
