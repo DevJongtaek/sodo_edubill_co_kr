@@ -5,7 +5,7 @@ using System.Web;
 
 namespace sodo_edubill_co_kr.ViewModels
 {
-    public class CompanyListItem
+    public class CompanyViewModel
     {
         //idx,tcode,comname
         public String Idx { get; set; }

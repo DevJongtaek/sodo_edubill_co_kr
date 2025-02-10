@@ -2351,46 +2351,46 @@ namespace sodo_edubill_co_kr.Models
         #endregion
 
         #region CompanyList
-        public CompanyListItem CompanyViewModel() { 
-            CompanyListItem r = null;
-            return r;
-
-        }
-
-        //public IEnumerable<CompanyViewModel> GetCompanyViewModels()
-        //{
-        //    List<CompanyViewModel> r = new List<CompanyViewModel>();
-
-        //    var Query =
-        //        @"SELECT  idx,tcode,comname
-        //        FROM tb_company
-        //        where adminProgram = 'sodo'";
-
-        //    using (SqlConnection Connection = new SqlConnection(ConnectionString))
-        //    {
-        //        Connection.Open();
-        //        var SelectCommand = Connection.CreateCommand();
-        //        SelectCommand.CommandText = Query;
-
-        //        var SelectReader = SelectCommand.ExecuteReader();
-        //        while (SelectReader.Read())
-        //        {
-        //            var wdate = SelectReader.GetString(6);
-        //            var Added = new CompanyViewModel
-        //            {
-        //                Idx = SelectReader.GetString(0),
-        //                TCode = SelectReader.GetString(1),
-        //                Comname = SelectReader.GetInt64(2).ToString("N0"),
-        //            };
-
-
-        //            r.Add(Added);
-        //        }
-        //        SelectReader.Close();
-        //    }
-
+        //public CompanyListItem CompanyViewModel() { 
+        //    CompanyListItem r = null;
         //    return r;
+
         //}
+
+        public IEnumerable<CompanyViewModel> GetCompanyViewModels()
+        {
+            List<CompanyViewModel> r = new List<CompanyViewModel>();
+
+            var Query =
+                @"SELECT  idx,tcode,comname
+                FROM tb_company
+                where adminProgram = 'sodo'";
+
+            using (SqlConnection Connection = new SqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                var SelectCommand = Connection.CreateCommand();
+                SelectCommand.CommandText = Query;
+
+                var SelectReader = SelectCommand.ExecuteReader();
+                while (SelectReader.Read())
+                {
+                    var wdate = SelectReader.GetString(6);
+                    var Added = new CompanyViewModel
+                    {
+                        Idx = SelectReader.GetString(0),
+                        TCode = SelectReader.GetString(1),
+                        Comname = SelectReader.GetInt64(2).ToString("N0"),
+                    };
+
+
+                    r.Add(Added);
+                }
+                SelectReader.Close();
+            }
+
+            return r;
+        }
 
         #endregion
 
