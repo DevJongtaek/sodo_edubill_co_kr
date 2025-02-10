@@ -645,20 +645,20 @@ namespace sodo_edubill_co_kr.Models
                     }
                     else
                     {
-                      
-                        //var order_weekchoice = Reader.GetString(1);
-                        //var vorder_checkStime = Reader.GetString(2);
-                        //var vorder_checkEtime = Reader.GetString(3);
-                        //var order_checkStime = int.Parse(vorder_checkStime);
-                        //var order_checkEtime = int.Parse(vorder_checkEtime);
-                        //var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
 
-                        //NowTime = nowtime;
-                        //Order_checkStime = order_checkStime;
-                        //Order_checkEtime = order_checkEtime;
+                        var order_weekchoice = Reader.GetString(1);
+                        var vorder_checkStime = Reader.GetString(2);
+                        var vorder_checkEtime = Reader.GetString(3);
+                        var order_checkStime = int.Parse(vorder_checkStime);
+                        var order_checkEtime = int.Parse(vorder_checkEtime);
+                        var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
 
-                       
-                       
+                        NowTime = nowtime;
+                        Order_checkStime = order_checkStime;
+                        Order_checkEtime = order_checkEtime;
+
+
+
                     }
                 }
                 Reader.Close();
