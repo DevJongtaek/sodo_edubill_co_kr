@@ -2443,12 +2443,12 @@ namespace sodo_edubill_co_kr.Models
                 var SelectReader = SelectCommand.ExecuteReader();
                 while (SelectReader.Read())
                 {
-                    var wdate = SelectReader.GetString(6);
+                   
                     var Added = new CompanyViewModel
                     {
-                        Idx = SelectReader.GetString(0),
+                        Idx = SelectReader.GetInt32(0).ToString(),
                         TCode = SelectReader.GetString(1),
-                        Comname = SelectReader.GetInt64(2).ToString("N0"),
+                        Comname = SelectReader.GetString(2),
                     };
 
 

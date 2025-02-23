@@ -12,12 +12,22 @@ namespace sodo_edubill_co_kr.Controllers
 {
     public class CompanyController : Controller
     {
+        DataProxy mDataProxy = new DataProxy();
         //
         // GET: /Company/
 
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Items()
+        {
+           
+          
+            var ViewModel = mDataProxy.GetCompanyViewModels();
+            return View(ViewModel);
         }
 
     }
