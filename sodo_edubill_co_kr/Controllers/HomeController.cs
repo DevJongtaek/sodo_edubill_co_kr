@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace sodo_edubill_co_kr.Controllers
 {
@@ -59,8 +60,10 @@ namespace sodo_edubill_co_kr.Controllers
             if (value.Password == null)
                 value.Password = "";
             var Session = mDataProxy.MakeSession(value.LoginID, value.Password);
-            if(String.IsNullOrEmpty(Session))
+           
+            if (String.IsNullOrEmpty(Session))
             {
+             
                 ViewBag.LoginID = value.LoginID;
                 ViewBag.SaveId = value.SaveId;
                 ViewBag.Error = true;

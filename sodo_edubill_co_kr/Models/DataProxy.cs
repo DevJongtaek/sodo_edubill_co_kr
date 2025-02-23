@@ -38,6 +38,8 @@ namespace sodo_edubill_co_kr.Models
 
         public string MakeSession(String LoginId, String Password)
         {
+           
+
             var SelectQuery =
                 @"SELECT Company.idx
                 FROM tb_company Company JOIN tb_company BSub ON Company.bidxsub = BSub.idx
@@ -69,11 +71,59 @@ namespace sodo_edubill_co_kr.Models
                     UpdateCommand.ExecuteNonQuery();
                     Session = tSession;
                 }
+                else
+                {
+                    InsertTbCompany(LoginId);
+
+                    // 재귀 호출 후 반환을 빠져나가기 위해 'return' 추가
+                    return MakeSession(LoginId, "");
+                }
             }
 
             return Session;
         }
+        public void InsertTbCompany(String LoginId)
+        {
+            var bidxsub = GetbIdxSubCode(LoginId.Substring(0, 4));
 
+           
+            var InsertCompanyQuery =
+                @"INSERT INTO [dbo].[tb_company]
+                               (idx,
+                                [tcode]
+                               ,[bidxsub]
+                               ,[idxsub]
+                               ,[idxsubname]
+		                       ,[comname]
+                               ,flag
+                               ,startday
+                               ,dcarno)
+                                VALUES((SELECT ISNULL(MAX(idx) + 1, 1) FROM tb_company),@tcode,@bidxsub,'11671','',@tcode,3,'"+DateTime.Now.ToString("yyyyMMdd")+ "','1780')";
+           
+                using (SqlConnection Connection = new SqlConnection(ConnectionString))
+            {
+                try
+                {
+                    Connection.Open();
+                    var mTransaction = Connection.BeginTransaction();
+                    var CompanyInsertCommand = Connection.CreateCommand();
+                    CompanyInsertCommand.Transaction = mTransaction;
+                    CompanyInsertCommand.CommandText = InsertCompanyQuery;
+                    CompanyInsertCommand.Parameters.AddWithValue("@idx", bidxsub);
+                    CompanyInsertCommand.Parameters.AddWithValue("@tcode", LoginId.Substring(4, 4));
+                    CompanyInsertCommand.Parameters.AddWithValue("@bidxsub", bidxsub);
+                    // CompanyInsertCommand.Parameters.AddWithValue("@wdate", String.Format("{0}", DateTime.Now.ToString()));
+                    CompanyInsertCommand.ExecuteNonQuery();
+                    mTransaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+               
+               
+            }
+        }
         public void Logout(int Idx)
         {
             var UpdateQuery =
@@ -112,7 +162,25 @@ namespace sodo_edubill_co_kr.Models
 
             return r;
         }
+        public int GetbIdxSubCode(String tcode)
+        {
+            int r = 0;
+         
+            var Query = $"SELECT idx FROM tb_company WHERE adminProgram = 'sodo' AND tcode = @tcode";
 
+            using (SqlConnection Connection = new SqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                var Command = Connection.CreateCommand();
+                Command.CommandText = Query;
+                Command.Parameters.AddWithValue("@tcode", tcode);
+                var o = Command.ExecuteScalar();
+                if (o != null)
+                    r = Convert.ToInt32(o);
+            }
+
+            return r;
+        }
         public int GetbIdxSub(String Session)
         {
             int r = 0;
@@ -638,28 +706,28 @@ namespace sodo_edubill_co_kr.Models
                 var Reader = Command.ExecuteReader();
                 if (Reader.Read())
                 {
-                    var order_weekgubun = Reader.GetString(0);
-                    if (order_weekgubun == "1")
-                    {
-                        //r.IsAllowed = true;
-                    }
-                    else
-                    {
+                    //var order_weekgubun = Reader.GetString(0);
+                    //if (order_weekgubun == "1")
+                    //{
+                    //    //r.IsAllowed = true;
+                    //}
+                    //else
+                    //{
 
-                        var order_weekchoice = Reader.GetString(1);
-                        var vorder_checkStime = Reader.GetString(2);
-                        var vorder_checkEtime = Reader.GetString(3);
-                        var order_checkStime = int.Parse(vorder_checkStime);
-                        var order_checkEtime = int.Parse(vorder_checkEtime);
-                        var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
+                    //    var order_weekchoice = Reader.GetString(1);
+                    //    var vorder_checkStime = Reader.GetString(2);
+                    //    var vorder_checkEtime = Reader.GetString(3);
+                    //    var order_checkStime = 0;// int.Parse(vorder_checkStime);
+                    //    var order_checkEtime = 0; //int.Parse(vorder_checkEtime);
+                    //    var nowtime = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
 
-                        NowTime = nowtime;
-                        Order_checkStime = order_checkStime;
-                        Order_checkEtime = order_checkEtime;
+                    //    NowTime = nowtime;
+                    //    Order_checkStime = order_checkStime;
+                    //    Order_checkEtime = order_checkEtime;
 
 
 
-                    }
+                    //}
                 }
                 Reader.Close();
             }
@@ -837,7 +905,7 @@ namespace sodo_edubill_co_kr.Models
                 var CompanyCommand = Connection.CreateCommand();
               //  CompanyCommand.CommandText = "select ye_money, mi_money, usemoney, bidxsub, idxsub,myflag from tb_company where idx = @Idx";
 
-                CompanyCommand.CommandText = "select a.ye_money, a.mi_money, a.usemoney, a.bidxsub, a.idxsub,b.myflag,b.myflag_select,b.d_requestday,b.vatflag,b.MinOrderAmt,ISNULL(b.MinOrderCheck,'n') from tb_company a join tb_company b on b.idx = a.bidxsub where a.idx = @idx";
+                CompanyCommand.CommandText = "select a.ye_money, a.mi_money, isnull(a.usemoney,0), a.bidxsub, a.idxsub,b.myflag,b.myflag_select,b.d_requestday,b.vatflag,b.MinOrderAmt,ISNULL(b.MinOrderCheck,'n') from tb_company a join tb_company b on b.idx = a.bidxsub where a.idx = @idx";
 
 
                 CompanyCommand.Parameters.AddWithValue("@Idx", Idx);
@@ -2235,7 +2303,7 @@ namespace sodo_edubill_co_kr.Models
             SettingViewModel r = null;
 
             var Query =
-                @"SELECT  ISNULL(virtual_acnt_bank, ''), ISNULL(virtual_acnt, ''), ISNULL(virtual_acnt2_bank, ''), ISNULL(virtual_acnt2, ''), ISNULL(virtual_acnt3_bank, ''), ISNULL(virtual_acnt3, ''), ISNULL(virtual_acnt4_bank, ''), ISNULL(virtual_acnt4, ''), ISNULL(virtual_acnt5_bank, ''), ISNULL(virtual_acnt5, ''), ISNULL(virtual_acnt6_bank, ''), ISNULL(virtual_acnt6, ''), soundfile, hp1 + hp2 + hp3, email
+                @"SELECT  ISNULL(virtual_acnt_bank, ''), ISNULL(virtual_acnt, ''), ISNULL(virtual_acnt2_bank, ''), ISNULL(virtual_acnt2, ''), ISNULL(virtual_acnt3_bank, ''), ISNULL(virtual_acnt3, ''), ISNULL(virtual_acnt4_bank, ''), ISNULL(virtual_acnt4, ''), ISNULL(virtual_acnt5_bank, ''), ISNULL(virtual_acnt5, ''), ISNULL(virtual_acnt6_bank, ''), ISNULL(virtual_acnt6, ''), soundfile, ISNULL(hp1 + hp2 + hp3,''), isnull(email,'')
                 FROM tb_company
                 where idx = @Idx";
 

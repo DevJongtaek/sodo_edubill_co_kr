@@ -2,7 +2,7 @@
 var offKeyboardHeight = 0;
 $(function () {
     MakeProductGroupsScroller();
-    TryAllowOrderByTime();
+    //TryAllowOrderByTime();
 GoCart2();
     $('.ui-li-count input').val('');
     CalculateSum();
